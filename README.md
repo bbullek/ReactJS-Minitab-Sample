@@ -3,7 +3,7 @@ This project was generated with [Create React App](https://github.com/facebook/c
 ### How to install and run:
 
 `git clone https://github.com/bbullek/ReactJS-Minitab-Sample.git`  
-`cd react_minitab`  
+`cd ReactJS-Minitab-Sample`  
 `npm install`  
 `npm start`  
 
