@@ -249,7 +249,7 @@ class App extends Component {
                       <TableCell>{this.state.sampleMeanValue}</TableCell>
                     </TableRow>
                     <TableRow hover>
-                      <TableCell>Sample size</TableCell>
+                      <TableCell>Standard deviation</TableCell>
                       <TableCell>{this.state.standardDevValue}</TableCell>
                     </TableRow>
                     <TableRow hover>
