@@ -1,0 +1,60 @@
+:root {
+    --primary: #6CB33F;
+    --secondary: #d3d3d3;
+    --white: #ffffff;
+    --black: #4c4c4c;
+}
+
+.btn {
+    display: inline-block;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border-radius: 10%;
+    margin: 20px 0px;
+}
+
+.btn:hover {
+    transform: translateY(3px);
+}
+
+/* Button variants */
+
+.btn--primary--solid {
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    width: 120%;
+}
+
+.btn--primary--outline {
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    width: 120%;
+}
+
+.btn--secondary--solid {
+    background-color: var(--secondary);
+    color: var(--black);
+    border: none;
+}
+
+.btn--secondary--outline {
+    background-color: transparent;
+    color: var(--black);
+    border: 2px solid var(--secondary);
+}
+
+/* Button sizes */
+
+.btn--med {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.btn--sm {
+    padding: 8px 20px;
+    font-size: 12px;
+}
