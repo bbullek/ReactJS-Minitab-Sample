@@ -237,7 +237,7 @@ class App extends Component {
 
           { /* Table of user's values -- only visible when all input is correct */ }
           <Grid container>
-            <Paper className="table--container" style={this.state.hideTable ? { visibility: 'hidden' } : { visibility: 'visible' }}>
+            <Paper className="table--container" style={this.state.hideTable ? { display: 'none' } : { display: 'inline' }}>
               <Table style={{width: "100%", marginTop: "5%"}}>
                 <TableBody>
                     <TableRow hover>
@@ -249,7 +249,7 @@ class App extends Component {
                       <TableCell>{this.state.sampleMeanValue}</TableCell>
                     </TableRow>
                     <TableRow hover>
-                      <TableCell>Sample size</TableCell>
+                      <TableCell>Standard deviation</TableCell>
                       <TableCell>{this.state.standardDevValue}</TableCell>
                     </TableRow>
                     <TableRow hover>
