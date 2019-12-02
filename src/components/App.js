@@ -104,10 +104,10 @@ class App extends Component {
    * element.
    */
   setTableVisibility() {
-    var e1 = this.checkUserInput(this.state.sampleSizeTemporary, 2, true);
-    var e2 = this.checkUserInput(this.state.sampleMeanTemporary, null);
-    var e3 = this.checkUserInput(this.state.standardDevTemporary, 0, false);
-    var e4 = this.state.isChecked ? this.checkUserInput(this.state.hypMeanTemporary, null) : '';
+    var e1 = this.checkUserInput(this.state.sampleSizeTemporary, 2, true, true);
+    var e2 = this.checkUserInput(this.state.sampleMeanTemporary, null, false);
+    var e3 = this.checkUserInput(this.state.standardDevTemporary, 0, false, false);
+    var e4 = this.state.isChecked ? this.checkUserInput(this.state.hypMeanTemporary, null, false, false) : '';
     var allInputsValid = e1.length + e2.length + e3.length + e4.length === 0;
 
     this.setState(state => ({
@@ -127,14 +127,18 @@ class App extends Component {
    * the input failed. Returns an empty string if input is correct.
    * @param {string} value 
    * @param {int} lowerLimit 
+   * @param {boolean} mustBeInteger
    * @param {boolean} isInclusive
    */
-  checkUserInput(value, lowerLimit, isInclusive) {
+  checkUserInput(value, lowerLimit, mustBeInteger, isInclusive) {
     if (value === '') {
       return 'Please enter a value.';
     }
     if (isNaN(value)) {
       return 'Value must be numeric.';
+    }
+    if (mustBeInteger && value != parseInt(value, 10)) {
+      return 'Value must be a whole number.';
     }
     if (lowerLimit != null && parseFloat(value) < lowerLimit) {
       var qualifier = 'greater than' + (isInclusive ? ' or equal to ' : ' ');
