@@ -39,6 +39,7 @@ class App extends Component {
       sampleSizeTemporary: '',
       sampleMeanTemporary: '',
       standardDevTemporary: '',
+      isCheckedTemporary: false,
       hypMeanTemporary: ''
     })
   }
@@ -48,16 +49,8 @@ class App extends Component {
    */
   _handleCheckboxToggle() {
     this.setState(state => ({
-      isChecked: !this.state.isChecked,
-      hypMeanErrorText: ''
+      isCheckedTemporary: !this.state.isCheckedTemporary
     }));
-
-    // Ensure table is hidden if textfield entry is invalid
-    if (!this.state.isChecked && this.state.hypMeanTemporary === '') {
-      this.setState(state => ({
-        hideTable: true
-      }));
-    }
   }
 
   /**
@@ -81,7 +74,7 @@ class App extends Component {
     }));
 
     // Check hypothesized mean input
-    if (this.state.isChecked) {
+    if (this.state.isCheckedTemporary) {
       this.setState(state => ({
         hypMeanErrorText: this.checkUserInput(this.state.hypMeanTemporary, null)
       }));
@@ -92,7 +85,8 @@ class App extends Component {
       sampleSizeValue: this.state.sampleSizeTemporary,
       sampleMeanValue: this.state.sampleMeanTemporary,
       standardDevValue: this.state.standardDevTemporary,
-      hypMeanValue: this.state.hypMeanTemporary
+      hypMeanValue: this.state.hypMeanTemporary,
+      isChecked: this.state.isCheckedTemporary
     }))
 
     this.setTableVisibility();
@@ -107,7 +101,7 @@ class App extends Component {
     var e1 = this.checkUserInput(this.state.sampleSizeTemporary, 2, true, true);
     var e2 = this.checkUserInput(this.state.sampleMeanTemporary, null, false);
     var e3 = this.checkUserInput(this.state.standardDevTemporary, 0, false, false);
-    var e4 = this.state.isChecked ? this.checkUserInput(this.state.hypMeanTemporary, null, false, false) : '';
+    var e4 = this.state.isCheckedTemporary ? this.checkUserInput(this.state.hypMeanTemporary, null, false, false) : '';
     var allInputsValid = e1.length + e2.length + e3.length + e4.length === 0;
 
     this.setState(state => ({
@@ -199,7 +193,7 @@ class App extends Component {
             <Grid item>
               <SimpleCheckbox 
                 onChange={this._handleCheckboxToggle} 
-                checked={this.state.isChecked}
+                checked={this.state.isCheckedTemporary}
               />
             </Grid>
             <Grid item>
@@ -210,13 +204,13 @@ class App extends Component {
           {/* TextField: hypothesized mean */}
           <Grid container spacing={2} alignItems="center">
             <Grid item xs={6}>
-              <InputLabel className={this.state.isChecked ? 'label' : 'label-disabled' }>
+              <InputLabel className={this.state.isCheckedTemporary ? 'label' : 'label-disabled' }>
                 Hypothesized mean:
               </InputLabel> 
             </Grid>
             <Grid item xs={6}>
               <TextField 
-                disabled={!this.state.isChecked}
+                disabled={!this.state.isCheckedTemporary}
                 value={this.state.hypMeanTemporary} 
                 helperText={this.state.hypMeanErrorText}
                 onChange={e => this.setState({ hypMeanTemporary: e.target.value })}
@@ -241,7 +235,7 @@ class App extends Component {
 
           { /* Table of user's values -- only visible when all input is correct */ }
           <Grid container>
-            <Paper className="table--container" style={this.state.hideTable ? { display: 'none' } : { display: 'inline' }}>
+            <Paper className="table--container" style={this.state.hideTable ? {display: 'none'} : {display: 'inline'}}>
               <Table style={{width: "100%", marginTop: "5%"}}>
                 <TableBody>
                     <TableRow hover>
@@ -256,9 +250,9 @@ class App extends Component {
                       <TableCell>Standard deviation</TableCell>
                       <TableCell>{this.state.standardDevValue}</TableCell>
                     </TableRow>
-                    <TableRow hover>
+                    <TableRow hover style={this.state.isChecked ? {display: ''} : {display: 'none'}}>
                       <TableCell>Hypothesized mean</TableCell>
-                      <TableCell>{this.state.isChecked ? this.state.hypMeanValue : "N/A"}</TableCell>
+                      <TableCell>{this.state.hypMeanValue}</TableCell>
                     </TableRow>
                 </TableBody>
               </Table>
